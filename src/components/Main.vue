@@ -1,10 +1,15 @@
 <template>
-  <main></main>
+  <main>
+    <p class="text-info">{{ searchedMovieTitle }}</p>
+  </main>
 </template>
 
 <script>
 export default {
   name: "indexMain",
+  props: {
+    searchedMovieTitle: String,
+  },
 };
 </script>
 

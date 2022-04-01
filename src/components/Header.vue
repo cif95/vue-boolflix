@@ -1,8 +1,15 @@
 <template>
   <header>
     <div class="input-group mb-3 p-5">
-      <button class="btn btn-outline-primary" type="button">Cerca</button>
+      <button
+        @click="$emit('searchSent', searchInput)"
+        class="btn btn-outline-primary"
+        type="button"
+      >
+        Cerca
+      </button>
       <input
+        v-model="searchInput"
         type="text"
         class="form-control"
         placeholder="scrivi il nome del film da cercare.."
@@ -18,6 +25,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
+      searchInput: "",
       movies: [],
     };
   },

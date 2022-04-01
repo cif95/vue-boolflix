@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Header />
-    <Main />
+    <Header @searchSent="getSearchedMovie" />
+    <Main :searchedMovieTitle="searchedMovie" />
+    <p class="text-danger">{{ searchedMovie }}</p>
   </div>
 </template>
 
@@ -11,9 +12,19 @@ import Main from "./components/Main.vue";
 
 export default {
   name: "App",
+  data() {
+    return {
+      searchedMovie: "",
+    };
+  },
   components: {
     Header,
     Main,
+  },
+  methods: {
+    getSearchedMovie(searchInput) {
+      this.searchedMovie = searchInput;
+    },
   },
 };
 </script>
