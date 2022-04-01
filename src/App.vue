@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <Header @searchSent="getSearchedMovie" />
-    <Main :searchedMovieTitle="searchedMovie" />
-    <p class="text-danger">{{ searchedMovie }}</p>
+    <Main :movies="searchedMovies" />
   </div>
 </template>
 
@@ -14,7 +13,7 @@ export default {
   name: "App",
   data() {
     return {
-      searchedMovie: "",
+      searchedMovies: [],
     };
   },
   components: {
@@ -22,8 +21,8 @@ export default {
     Main,
   },
   methods: {
-    getSearchedMovie(searchInput) {
-      this.searchedMovie = searchInput;
+    getSearchedMovie(movies) {
+      this.searchedMovies = movies;
     },
   },
 };

@@ -2,7 +2,7 @@
   <header>
     <div class="input-group mb-3 p-5">
       <button
-        @click="$emit('searchSent', searchInput)"
+        @click="getMovies()"
         class="btn btn-outline-primary"
         type="button"
       >
@@ -20,30 +20,27 @@
 
 <script>
 import axios from "axios";
-
 export default {
   name: "indexHeader",
   data() {
     return {
+      movies: "",
       searchInput: "",
-      movies: [],
     };
   },
   methods: {
     getMovies() {
       axios
         .get(
-          "https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=1"
+          `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`
         )
         .then((result) => {
-          // this.mov = result.data.response;
-          console.log(result);
+          this.movies = result.data.results;
+          console.log(this.movies);
+          this.$emit("searchSent", this.movies);
         })
         .catch((error) => console.error(error));
     },
-  },
-  created() {
-    this.getMovies();
   },
 };
 </script>
