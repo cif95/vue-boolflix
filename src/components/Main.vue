@@ -1,54 +1,46 @@
 <template>
   <main>
-    <ul>
-      <li v-for="(element, index) in movies" :key="index">
-        <h2>Title : {{ element.title }}</h2>
-        <h3>Original Title: {{ element.original_title }}</h3>
-        <p>Language: {{ element.original_language }}</p>
-        <p>Vote: {{ element.vote_count }}</p>
-      </li>
-    </ul>
+    <div class="movies-cards container">
+      <div class="row row-cols-4">
+        <div class="col-12">
+          <h2>Movies:</h2>
+        </div>
+        <Card
+          class="col"
+          :movie="movie"
+          v-for="(movie, index) in movies"
+          :key="index"
+        />
+      </div>
+      <div class="row row-cols-4">
+        <div class="col-12">
+          <h2>Series:</h2>
+        </div>
+        <div class="col" v-for="(el, index) in series" :key="index">
+          <h2>Title: {{ el.name }}</h2>
+          <h3>Original Title: {{ el.original_name }}</h3>
+          <p>
+            Language: <span :class="`fi fi-${el.original_language}`"></span>
+          </p>
+          <p>Vote: {{ el.vote_count }}</p>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
 <script>
-// import axios from "axios";
+import Card from "./Card.vue";
 
 export default {
   name: "indexMain",
   props: {
     movies: Array,
+    series: Array,
   },
-  // data() {
-  //   return {
-  //     movies: [],
-  //   };
-  // },
-  // methods: {
-  //   getMovies() {
-  //     axios
-  //       .get(
-  //         "https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query={{this.searchedMovieTitle}}"
-  //       )
-  //       .then((result) => {
-  //         this.movies = result.data.results;
-  //         console.log(this.movies);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   },
-  // },
-  // computed: {
-  //   filteredMovies() {
-  //     return this.movies.filter((element) => {
-  //       return element.title
-  //         .toLowerCase()
-  //         .includes(this.searchedMovieTitle.toLowerCase());
-  //     });
-  //   },
-  // },
-  // created() {
-  //   this.getMovies();
-  // },
+  components: {
+    Card,
+  },
 };
 </script>
 

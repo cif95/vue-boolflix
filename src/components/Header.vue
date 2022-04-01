@@ -25,19 +25,41 @@ export default {
   data() {
     return {
       movies: "",
+      series: "",
       searchInput: "",
     };
   },
   methods: {
     getMovies() {
+      // `https://api.themoviedb.org/3/search/tv?api_key=45d1fef94b225203d677fc5ce9e00535&language=it_IT&query=${this.searchInput}`
+      // axios
+      //   .get(
+      //     `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`
+      //   )
+      //   .then((result) => {
+      //     this.movies = result.data.results;
+      //     console.log(this.movies);
+      //     this.$emit("searchSent", this.movies);
+      //   })
+      //   .catch((error) => console.error(error));
+      this.sendRequest(
+        `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`,
+        this.movies,
+        "moviesSearchSent"
+      );
+      this.sendRequest(
+        `https://api.themoviedb.org/3/search/tv?api_key=45d1fef94b225203d677fc5ce9e00535&language=it_IT&query=${this.searchInput}`,
+        this.series,
+        "seriesSearchSent"
+      );
+    },
+    sendRequest(uri, dataEl, nameEvent) {
       axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`
-        )
+        .get(uri)
         .then((result) => {
-          this.movies = result.data.results;
-          console.log(this.movies);
-          this.$emit("searchSent", this.movies);
+          dataEl = result.data.results;
+          console.log(dataEl);
+          this.$emit(nameEvent, dataEl);
         })
         .catch((error) => console.error(error));
     },

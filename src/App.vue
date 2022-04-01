@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <Header @searchSent="getSearchedMovie" />
-    <Main :movies="searchedMovies" />
+    <Header
+      @moviesSearchSent="getSearchedMovie"
+      @seriesSearchSent="getSearchedSeries"
+    />
+    <Main :movies="searchedMovies" :series="searchedSeries" />
   </div>
 </template>
 
@@ -14,6 +17,7 @@ export default {
   data() {
     return {
       searchedMovies: [],
+      searchedSeries: [],
     };
   },
   components: {
@@ -23,6 +27,9 @@ export default {
   methods: {
     getSearchedMovie(movies) {
       this.searchedMovies = movies;
+    },
+    getSearchedSeries(series) {
+      this.searchedSeries = series;
     },
   },
 };
