@@ -4,7 +4,8 @@
       @moviesSearchSent="getSearchedMovie"
       @seriesSearchSent="getSearchedSeries"
     />
-    <Main :movies="searchedMovies" :series="searchedSeries" />
+    <Main :SearchedList="searchedMovies" />
+    <Main :SearchedList="searchedSeries" />
   </div>
 </template>
 

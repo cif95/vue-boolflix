@@ -2,24 +2,10 @@
   <main>
     <div class="movies-cards container">
       <div class="row row-cols-4">
-        <div class="col-12">
-          <h2>Movies:</h2>
-        </div>
-        <MovieCard
+        <Card
           class="col"
-          :movie="movie"
-          v-for="(movie, index) in movies"
-          :key="index"
-        />
-      </div>
-      <div class="row row-cols-4">
-        <div class="col-12">
-          <h2>Series:</h2>
-        </div>
-        <SeriesCard
-          class="col"
-          :series="el"
-          v-for="(el, index) in series"
+          :item="el"
+          v-for="(el, index) in SearchedList"
           :key="index"
         />
       </div>
@@ -28,17 +14,15 @@
 </template>
 
 <script>
-import MovieCard from "./MovieCard.vue";
-import SeriesCard from "./SeriesCard.vue";
+import Card from "./Card.vue";
+
 export default {
   name: "indexMain",
   props: {
-    movies: Array,
-    series: Array,
+    SearchedList: Array,
   },
   components: {
-    MovieCard,
-    SeriesCard,
+    Card,
   },
 };
 </script>
