@@ -26,11 +26,14 @@ export default {
     return {
       movies: "",
       series: "",
+      haiSearched: false,
       searchInput: "",
     };
   },
   methods: {
     getMovies() {
+      this.hasSearched = true;
+      this.$emit("madeSearch", this.hasSearched);
       this.sendRequest(
         `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`,
         this.movies,
