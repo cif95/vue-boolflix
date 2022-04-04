@@ -1,18 +1,15 @@
 <template>
   <header>
-    <div class="input-group mb-3 p-5">
-      <button
-        @click="getMovies()"
-        class="btn btn-outline-primary"
-        type="button"
-      >
+    <div class="input-group mb-3 px-3 py-5">
+      <button @click="getMovies()" class="btn ms-btn" type="button">
         Cerca
       </button>
       <input
+        @keydown.enter="getMovies()"
         v-model="searchInput"
         type="text"
         class="form-control"
-        placeholder="scrivi il nome del film da cercare.."
+        placeholder="Cerca.."
       />
     </div>
   </header>
@@ -28,24 +25,35 @@ export default {
       series: "",
       haiSearched: false,
       searchInput: "",
+      apiKey: "45d1fef94b225203d677fc5ce9e00535",
+      apiBaseUrl: "https://api.themoviedb.org/3/search/",
     };
   },
   methods: {
     getMovies() {
       this.hasSearched = true;
       this.$emit("madeSearch", this.hasSearched);
-      this.sendRequest(
-        `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`,
+      this.sendGetRequest(
+        `${this.apiBaseUrl}movie?api_key=${
+          this.apiKey
+        }&language=it-IT&page=2&include_adult=false&query=${this.searchInput.trim(
+          "+"
+        )}`,
         this.movies,
         "moviesSearchSent"
       );
-      this.sendRequest(
-        `https://api.themoviedb.org/3/search/tv?api_key=45d1fef94b225203d677fc5ce9e00535&language=it_IT&query=${this.searchInput}`,
+      this.sendGetRequest(
+        `${this.apiBaseUrl}tv?api_key=${
+          this.apiKey
+        }&language=it-IT&page=2&include_adult=false&query=${this.searchInput.trim(
+          "+"
+        )}`,
         this.series,
         "seriesSearchSent"
       );
+      this.searchInput = "";
     },
-    sendRequest(uri, dataEl, nameEvent) {
+    sendGetRequest(uri, dataEl, nameEvent) {
       axios
         .get(uri)
         .then((result) => {
@@ -59,4 +67,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../assets/scss/partials/_variables.scss";
+button {
+  color: white;
+  background-color: $brandColor;
+}
+</style>

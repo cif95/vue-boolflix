@@ -1,4 +1,46 @@
 @mixin card {
-	border: 1px solid black;
-  padding: 1rem;
+	padding: 0;
+  height: 450px;
+	div.front-card {
+		height: 100%;
+	}
+	div.back-card {
+		word-break: break-all;
+		height: 100%;
+		padding: 0.8rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		svg {
+			height: 25px;
+		}
+		h6{
+			font-size: 0.95rem;
+		}
+		p {
+			font-size: 0.85rem;
+		}
+	}
 }
+
+@mixin sizing($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+@mixin flex($justify, $align) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin position($position, $top, $right, $bottom, $left, $zIndex) {
+	position: $position;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+	z-index: $zIndex;
+}
+
+$darkgrey: #1B1B1B;
+$brandColor: #E20712;

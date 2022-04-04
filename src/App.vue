@@ -5,37 +5,34 @@
       @seriesSearchSent="getSearchedSeries"
       @madeSearch="checkHasSearched"
     />
-    <main>
-      <section id="movies" v-if="hasSearched">
-        <h2 :isSearchDone="hasSearched">Movies:</h2>
-        <span v-if="searchedMovies.length == 0"> No results found</span>
-        <Content :SearchedList="searchedMovies" />
-      </section>
-      <section id="tv-series" v-if="hasSearched">
-        <h2 :isSearchDone="hasSearched">Series:</h2>
-        <span v-if="searchedSeries.length == 0"> No results found</span>
-        <Content :SearchedList="searchedSeries" />
-      </section>
-    </main>
+    <Loader v-if="(!searchedMovies || !searchedSeries) && hasSearched" />
+    <Main
+      v-else
+      :series="searchedSeries"
+      :movies="searchedMovies"
+      :hasSearched="hasSearched"
+    />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import Content from "./components/Content.vue";
+import Main from "./components/Main.vue";
+import Loader from "./components/main-components/Loader.vue";
 
 export default {
   name: "App",
   data() {
     return {
-      searchedMovies: [],
-      searchedSeries: [],
-      hasSearched: "",
+      searchedMovies: null,
+      searchedSeries: null,
+      hasSearched: false,
     };
   },
   components: {
     Header,
-    Content,
+    Main,
+    Loader,
   },
   methods: {
     getSearchedMovie(movies) {

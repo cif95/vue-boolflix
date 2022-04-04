@@ -1,13 +1,13 @@
 <template>
-  <div class="my-cards container">
-    <ul class="row row-cols-4">
+  <div class="my-cards container-fluid">
+    <div class="row row-cols-6 g-1">
       <Card
         class="col"
         :item="el"
         v-for="(el, index) in SearchedList"
         :key="index"
       />
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -25,4 +25,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  div.row {
+    color: white;
+  }
+</style>
