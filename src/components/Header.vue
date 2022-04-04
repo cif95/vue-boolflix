@@ -31,17 +31,6 @@ export default {
   },
   methods: {
     getMovies() {
-      // `https://api.themoviedb.org/3/search/tv?api_key=45d1fef94b225203d677fc5ce9e00535&language=it_IT&query=${this.searchInput}`
-      // axios
-      //   .get(
-      //     `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`
-      //   )
-      //   .then((result) => {
-      //     this.movies = result.data.results;
-      //     console.log(this.movies);
-      //     this.$emit("searchSent", this.movies);
-      //   })
-      //   .catch((error) => console.error(error));
       this.sendRequest(
         `https://api.themoviedb.org/3/search/movie?api_key=45d1fef94b225203d677fc5ce9e00535&language=it-IT&page=2&include_adult=false&query=${this.searchInput}`,
         this.movies,

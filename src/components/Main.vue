@@ -5,7 +5,7 @@
         <div class="col-12">
           <h2>Movies:</h2>
         </div>
-        <Card
+        <MovieCard
           class="col"
           :movie="movie"
           v-for="(movie, index) in movies"
@@ -16,22 +16,20 @@
         <div class="col-12">
           <h2>Series:</h2>
         </div>
-        <div class="col" v-for="(el, index) in series" :key="index">
-          <h2>Title: {{ el.name }}</h2>
-          <h3>Original Title: {{ el.original_name }}</h3>
-          <p>
-            Language: <span :class="`fi fi-${el.original_language}`"></span>
-          </p>
-          <p>Vote: {{ el.vote_count }}</p>
-        </div>
+        <SeriesCard
+          class="col"
+          :series="el"
+          v-for="(el, index) in series"
+          :key="index"
+        />
       </div>
     </div>
   </main>
 </template>
 
 <script>
-import Card from "./Card.vue";
-
+import MovieCard from "./MovieCard.vue";
+import SeriesCard from "./SeriesCard.vue";
 export default {
   name: "indexMain",
   props: {
@@ -39,7 +37,8 @@ export default {
     series: Array,
   },
   components: {
-    Card,
+    MovieCard,
+    SeriesCard,
   },
 };
 </script>
