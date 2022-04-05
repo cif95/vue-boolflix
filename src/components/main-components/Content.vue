@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  div.row {
-    color: white;
-  }
+div.row {
+  color: white;
+}
 </style>

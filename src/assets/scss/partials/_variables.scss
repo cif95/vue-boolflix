@@ -1,6 +1,7 @@
 @mixin card {
 	padding: 0;
   height: 450px;
+  transition: all 2s ease-in-out;
 	div.front-card {
 		height: 100%;
 	}

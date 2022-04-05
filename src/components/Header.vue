@@ -23,9 +23,9 @@ export default {
     return {
       movies: "",
       series: "",
-      haiSearched: false,
+      hasSearched: false,
       searchInput: "",
-      apiKey: "45d1fef94b225203d677fc5ce9e00535",
+      apiKey: "?api_key=45d1fef94b225203d677fc5ce9e00535&query=",
       apiBaseUrl: "https://api.themoviedb.org/3/search/",
     };
   },
@@ -34,20 +34,12 @@ export default {
       this.hasSearched = true;
       this.$emit("madeSearch", this.hasSearched);
       this.sendGetRequest(
-        `${this.apiBaseUrl}movie?api_key=${
-          this.apiKey
-        }&language=it-IT&page=2&include_adult=false&query=${this.searchInput.trim(
-          "+"
-        )}`,
+        `${this.apiBaseUrl}movie${this.apiKey}${this.searchInput}`,
         this.movies,
         "moviesSearchSent"
       );
       this.sendGetRequest(
-        `${this.apiBaseUrl}tv?api_key=${
-          this.apiKey
-        }&language=it-IT&page=2&include_adult=false&query=${this.searchInput.trim(
-          "+"
-        )}`,
+        `${this.apiBaseUrl}tv${this.apiKey}${this.searchInput}`,
         this.series,
         "seriesSearchSent"
       );

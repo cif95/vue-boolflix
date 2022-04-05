@@ -1,5 +1,5 @@
 <template>
-  <div class="my-card" @mouseenter="flipCard()">
+  <div class="my-card" @mouseover="flip()" @mouseleave="flipBack()">
     <div v-if="!isFlipped" class="front-card">
       <img
         class="img-fluid"
@@ -91,8 +91,11 @@ export default {
     item: Object,
   },
   methods: {
-    flipCard() {
-      this.isFlipped = !this.isFlipped;
+    flip() {
+      this.isFlipped = true;
+    },
+    flipBack() {
+      this.isFlipped = false;
     },
   },
 };
