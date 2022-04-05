@@ -9,11 +9,7 @@
     </div>
     <div v-else class="back-card">
       <h6>Titolo: {{ item.title || item.name }}</h6>
-      <h6
-        v-if="
-          item.title != item.original_title || item.name != item.original_name
-        "
-      >
+      <h6 v-if="isTitleDifferent(item)">
         Titolo originale: {{ item.original_title || item.original_name }}
       </h6>
       <lang-flag :iso="item.original_language" />
@@ -37,7 +33,7 @@ export default {
   data: function () {
     return {
       isFlipped: false,
-      rating: Math.round(this.item.vote_average / 2),
+      rating: this.item.vote_average / 2,
       starStyle: {
         fullStarColor: "#EFB100",
         emptyStarColor: "#D3D0C6",
@@ -91,6 +87,13 @@ export default {
     item: Object,
   },
   methods: {
+    isTitleDifferent(item) {
+      if (
+        item.title !== item.original_title ||
+        item.name !== item.original_name
+      )
+        return true;
+    },
     flip() {
       this.isFlipped = true;
     },
