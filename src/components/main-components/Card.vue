@@ -1,32 +1,34 @@
 <template>
-  <div class="my-card" @mouseover="flip()" @mouseleave="flipBack()">
-    <div
-      v-if="!isFlipped"
-      class="front-card"
-      :class="{ fallback: item.poster_path === null }"
-    >
-      <img
-        class="img-fluid"
-        :src="`https://image.tmdb.org/t/p/w342/${item.poster_path}`"
-        :alt="`${item.name || item.title}`"
-      />
-    </div>
-    <div v-else class="back-card">
-      <h6>Titolo: {{ item.title || item.name }}</h6>
-      <h6 v-if="isTitleDifferent(item)">
-        Titolo originale: {{ item.original_title || item.original_name }}
-      </h6>
-      <lang-flag :iso="item.original_language" />
-      <span v-if="!flagLang.includes(item.original_language)">
-        Lingua : {{ item.original_language }}
-      </span>
-      <h6>voto:</h6>
-      <star-rating
-        :rating="rating"
-        :isIndicatorActive="false"
-        :star-style="starStyle"
-      ></star-rating>
-      <p>{{ item.overview }}</p>
+  <div class="col">
+    <div class="my-card" @mouseover="flip()" @mouseleave="flipBack()">
+      <div
+        v-if="!isFlipped"
+        class="front-card"
+        :class="{ fallback: item.poster_path === null }"
+      >
+        <img
+          class="img-fluid"
+          :src="`https://image.tmdb.org/t/p/w500/${item.poster_path}`"
+          :alt="`${item.name || item.title}`"
+        />
+      </div>
+      <div v-else class="back-card">
+        <h6>Titolo: {{ item.title || item.name }}</h6>
+        <h6 v-if="isTitleDifferent(item)">
+          Titolo originale: {{ item.original_title || item.original_name }}
+        </h6>
+        <lang-flag :iso="item.original_language" />
+        <h6 v-if="!flagLang.includes(item.original_language)">
+          Lingua : {{ item.original_language }}
+        </h6>
+        <h6>voto:</h6>
+        <star-rating
+          :rating="rating"
+          :isIndicatorActive="false"
+          :star-style="starStyle"
+        ></star-rating>
+        <p>{{ item.overview }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -112,8 +114,37 @@ export default {
 @import "../../assets/scss/partials/_variables.scss";
 div.my-card {
   @include card;
-  star-rating {
-    margin-right: 0;
+  div.front-card,
+  div.back-card,
+  div.front-card {
+    max-width: 100%;
+    img {
+      height: 45vh;
+    }
+  }
+  div.back-card {
+    box-shadow: 0px 3px 11px 2px #404040;
+    background-color: $darkgrey;
+    padding: 3rem 1rem;
+    border-radius: 20px;
+    @include sizing(100%, 100%);
+    max-width: 300px;
+    min-width: 250px;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    star-rating {
+      margin-right: 0;
+    }
+    svg {
+      height: 25px;
+    }
+    h6 {
+      font-size: 0.95rem;
+    }
+    p {
+      font-size: 0.75rem;
+    }
   }
 }
 </style>

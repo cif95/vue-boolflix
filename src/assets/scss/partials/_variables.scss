@@ -1,25 +1,10 @@
 @mixin card {
-	padding: 0;
-  height: 450px;
-  transition: display 2s ease-in-out;
-	div.front-card {
-		height: 100%;
-	}
-	div.back-card {
-		word-break: break-all;
-		height: 100%;
-		padding: 0.8rem;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		svg {
-			height: 25px;
-		}
-		h6{
-			font-size: 0.95rem;
-		}
-		p {
-			font-size: 0.85rem;
-		}
+	height: 45vh;
+	border-radius: 10px;
+	min-width: 250px;
+	img { 
+		box-shadow: 0px 3px 11px 2px #404040;
+		border-radius: 20px;
 	}
 }
 
@@ -34,6 +19,14 @@
 	align-items: $align;
 }
 
+@mixin background($size, $repeat, $position, $color, $url) {
+	background-size: $size;
+	background-repeat: $repeat;
+	background-position: $position;
+	background-color: $color;
+	background-image: $url;
+}
+
 @mixin position($position, $top, $right, $bottom, $left, $zIndex) {
 	position: $position;
 	top: $top;
@@ -44,4 +37,4 @@
 }
 
 $darkgrey: #1B1B1B;
-$brandColor: #E20712;
+$brandColor: #82E1FF;

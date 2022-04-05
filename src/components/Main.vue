@@ -1,8 +1,8 @@
 <template>
-  <main class="px-3 text-white">
+  <main class="p-5 text-white">
     <section id="movies" v-if="hasSearched">
-      <h2>Movies:</h2>
-      <span v-if="checkList(movies, filteredMovies(genre))">
+      <h4>Movies:</h4>
+      <span v-if="!checkList(movies, filteredMovies(genre))">
         No results found</span
       >
       <Content
@@ -10,8 +10,8 @@
       />
     </section>
     <section id="tv-series" v-if="hasSearched">
-      <h2>Series:</h2>
-      <span v-if="checkList(series, filteredSeries(genre))">
+      <h4>Series:</h4>
+      <span v-if="!checkList(series, filteredSeries(genre))">
         No results found</span
       >
       <Content
@@ -19,7 +19,7 @@
       />
     </section>
     <section id="popular-movies">
-      <h2>Most popular:</h2>
+      <h4>Most popular:</h4>
       <Content :SearchedList="popularMovies" />
     </section>
   </main>
@@ -54,7 +54,7 @@ export default {
       return this.movies.filter((element) => element.genre_ids.includes(genre));
     },
     checkList(firstList, secondList) {
-      if (firstList.length == 0 || secondList.length == 0) return true;
+      if (firstList.length != 0 || secondList.length != 0) return true;
     },
   },
   created() {

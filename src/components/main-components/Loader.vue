@@ -21,7 +21,7 @@ div.loader {
   svg {
     width: 100px;
     height: 100px;
-    color: red;
+    color: $brandColor;
     animation: 2s linear clockwise infinite;
   }
 }

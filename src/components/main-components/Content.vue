@@ -1,12 +1,9 @@
 <template>
-  <div class="my-cards container-fluid">
-    <div class="row row-cols-6 g-1">
-      <Card
-        class="col"
-        :item="el"
-        v-for="(el, index) in SearchedList"
-        :key="index"
-      />
+  <div class="my-cards container-fluid py-5">
+    <div
+      class="row row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-5 align-items-start"
+    >
+      <Card :item="el" v-for="(el, index) in SearchedList" :key="index" />
     </div>
   </div>
 </template>

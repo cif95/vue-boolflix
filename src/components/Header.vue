@@ -1,41 +1,55 @@
 <template>
   <header>
-    <div class="input-group mb-3 px-3 py-5">
-      <button @click="getMoviesAndSeries()" class="btn ms-btn" type="button">
-        Cerca
-      </button>
-      <input
-        @keydown.enter="getMoviesAndSeries()"
-        v-model="searchInput"
-        type="text"
-        class="form-control"
-        placeholder="Cerca.."
-      />
-      <select v-model="selectedLanguage" class="form-select">
-        <option value="">Select Language</option>
-        <option
-          :value="language.iso_639_1"
-          v-for="(language, index) in availableLanguages"
-          :key="index"
+    <nav class="navbar navbar-dark navbar-expand-lg">
+      <div class="container-fluid py-1 px-5">
+        <a class="navbar-brand fs-1">Boolflix</a>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNavAltMarkup"
         >
-          {{ language.english_name }}
-        </option>
-      </select>
-      <select
-        @change="$emit('selectedGenre', selectedGenre)"
-        v-model="selectedGenre"
-        class="form-select"
-      >
-        <option value="">Select Genre</option>
-        <option
-          :value="genre.id"
-          v-for="(genre, index) in allGenres"
-          :key="index"
-        >
-          {{ genre.name }}
-        </option>
-      </select>
-    </div>
+          <div class="d-flex">
+            <button
+              @click="getMoviesAndSeries()"
+              class="btn ms-btn"
+              type="button"
+            >
+              Cerca
+            </button>
+            <input
+              @keydown.enter="getMoviesAndSeries()"
+              v-model="searchInput"
+              type="text"
+              class="form-control mx-2"
+              placeholder="Cerca.."
+            />
+            <select v-model="selectedLanguage" class="form-select w-25">
+              <option value="">Select Language</option>
+              <option
+                :value="language.iso_639_1"
+                v-for="(language, index) in availableLanguages"
+                :key="index"
+              >
+                {{ language.english_name }}
+              </option>
+            </select>
+            <select
+              @change="$emit('selectedGenre', selectedGenre)"
+              v-model="selectedGenre"
+              class="form-select ms-2"
+            >
+              <option value="">Select Genre</option>
+              <option
+                :value="genre.id"
+                v-for="(genre, index) in allGenres"
+                :key="index"
+              >
+                {{ genre.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
 </template>
 
@@ -111,8 +125,19 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/partials/_variables.scss";
+header {
+  box-shadow: 1px 1px 3px #2d2d2d;
+  input,
+  select {
+    color: white;
+    background-color: transparent;
+    option {
+      background-color: $darkgrey;
+    }
+  }
+}
 button {
-  color: white;
+  color: $darkgrey;
   background-color: $brandColor;
 }
 </style>
