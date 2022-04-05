@@ -1,6 +1,8 @@
-// @import "./_variables.scss";
-
-// .ms-btn {
-// 	color: white;
-// 	background-color: $brandColor;
-// }
+.fallback {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url(https://www.mobileworld.it/wp-content/uploads/2016/06/netflix-nuova-icona-800x534.png);
+}

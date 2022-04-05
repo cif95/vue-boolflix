@@ -1,10 +1,14 @@
 <template>
   <div class="my-card" @mouseover="flip()" @mouseleave="flipBack()">
-    <div v-if="!isFlipped" class="front-card">
+    <div
+      v-if="!isFlipped"
+      class="front-card"
+      :class="{ fallback: item.poster_path === null }"
+    >
       <img
         class="img-fluid"
         :src="`https://image.tmdb.org/t/p/w342/${item.poster_path}`"
-        :alt="`poster of ${item.name || item.title}`"
+        :alt="`${item.name || item.title}`"
       />
     </div>
     <div v-else class="back-card">

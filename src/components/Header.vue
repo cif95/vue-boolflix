@@ -1,16 +1,40 @@
 <template>
   <header>
     <div class="input-group mb-3 px-3 py-5">
-      <button @click="getAndEmitResults()" class="btn ms-btn" type="button">
+      <button @click="getMoviesAndSeries()" class="btn ms-btn" type="button">
         Cerca
       </button>
       <input
-        @keydown.enter="getAndEmitResults()"
+        @keydown.enter="getMoviesAndSeries()"
         v-model="searchInput"
         type="text"
         class="form-control"
         placeholder="Cerca.."
       />
+      <select v-model="selectedLanguage" class="form-select">
+        <option value="">Select Language</option>
+        <option
+          :value="language.iso_639_1"
+          v-for="(language, index) in availableLanguages"
+          :key="index"
+        >
+          {{ language.english_name }}
+        </option>
+      </select>
+      <select
+        @change="$emit('selectedGenre', selectedGenre)"
+        v-model="selectedGenre"
+        class="form-select"
+      >
+        <option value="">Select Genre</option>
+        <option
+          :value="genre.id"
+          v-for="(genre, index) in allGenres"
+          :key="index"
+        >
+          {{ genre.name }}
+        </option>
+      </select>
     </div>
   </header>
 </template>
@@ -23,29 +47,38 @@ export default {
     return {
       movies: "",
       series: "",
+      selectedLanguage: "",
+      selectedGenre: "",
+      availableLanguages: "",
+      allGenres: "",
       hasSearched: false,
       searchInput: "",
-      apiKey: "?api_key=45d1fef94b225203d677fc5ce9e00535&language=it&query=",
-      apiBaseUrl: "https://api.themoviedb.org/3/search/",
+      apiKey: "?api_key=45d1fef94b225203d677fc5ce9e00535",
+      apiBaseUrl: "https://api.themoviedb.org/3/",
     };
   },
   methods: {
-    getAndEmitResults() {
+    // getting movies and series list based on input search
+    getMoviesAndSeries() {
       this.hasSearched = true;
       this.$emit("madeSearch", this.hasSearched);
-      this.sendGetRequest(
-        `${this.apiBaseUrl}movie${this.apiKey}${this.searchInput}`,
-        this.movies,
-        "moviesSearchSent"
-      );
-      this.sendGetRequest(
-        `${this.apiBaseUrl}tv${this.apiKey}${this.searchInput}`,
-        this.series,
-        "seriesSearchSent"
-      );
-      this.searchInput = "";
+      if (this.searchInput != "") {
+        this.sendRequestAndEmit(
+          `${this.apiBaseUrl}search/movie${this.apiKey}&language=${this.selectedLanguage}&query=${this.searchInput}`,
+          this.movies,
+          "moviesSearchSent"
+        );
+        this.sendRequestAndEmit(
+          `${this.apiBaseUrl}search/tv${this.apiKey}&language=${this.selectedLanguage}&query=${this.searchInput}`,
+          this.series,
+          "seriesSearchSent"
+        );
+        this.searchInput = "";
+      } else {
+        console.log("input value is empty");
+      }
     },
-    sendGetRequest(uri, dataEl, nameEvent) {
+    sendRequestAndEmit(uri, dataEl, nameEvent) {
       axios
         .get(uri)
         .then((result) => {
@@ -55,6 +88,23 @@ export default {
         })
         .catch((error) => console.error(error));
     },
+  },
+  created() {
+    // getting languages list from api
+    axios
+      .get(`${this.apiBaseUrl}configuration/languages${this.apiKey}`)
+      .then((result) => {
+        this.availableLanguages = result.data;
+      })
+      .catch((error) => console.error(error));
+    // getting all genres from api
+    axios
+      .get(`${this.apiBaseUrl}genre/movie/list${this.apiKey}&language=en-US`)
+      .then((result) => {
+        this.allGenres = result.data.genres;
+        console.log(this.allGenres);
+      })
+      .catch((error) => console.error(error));
   },
 };
 </script>

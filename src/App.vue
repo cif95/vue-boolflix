@@ -4,6 +4,7 @@
       @moviesSearchSent="getSearchedMovie"
       @seriesSearchSent="getSearchedSeries"
       @madeSearch="checkHasSearched"
+      @selectedGenre="updateGenre"
     />
     <Loader v-if="(!searchedMovies || !searchedSeries) && hasSearched" />
     <Main
@@ -11,6 +12,8 @@
       :series="searchedSeries"
       :movies="searchedMovies"
       :hasSearched="hasSearched"
+      :hasSelectedGenre="hasSelectedGenre"
+      :genre="genre"
     />
   </div>
 </template>
@@ -27,6 +30,8 @@ export default {
       searchedMovies: null,
       searchedSeries: null,
       hasSearched: false,
+      hasSelectedGenre: false,
+      genre: null,
     };
   },
   components: {
@@ -43,6 +48,11 @@ export default {
     },
     checkHasSearched(hasSearched) {
       this.hasSearched = hasSearched;
+    },
+    updateGenre(selectedGenre) {
+      this.genre = selectedGenre;
+      console.log(selectedGenre);
+      this.hasSelectedGenre = true;
     },
   },
 };
