@@ -23,7 +23,7 @@
               placeholder="Cerca.."
             />
             <select v-model="selectedLanguage" class="form-select w-25">
-              <option value="">Select Language</option>
+              <option value="">Lang</option>
               <option
                 :value="language.iso_639_1"
                 v-for="(language, index) in availableLanguages"

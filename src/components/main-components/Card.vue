@@ -120,6 +120,7 @@ div.my-card {
     max-width: 100%;
     img {
       height: 45vh;
+      object-fit: cover;
     }
   }
   div.back-card {

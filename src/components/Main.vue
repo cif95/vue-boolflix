@@ -2,7 +2,7 @@
   <main class="p-5 text-white">
     <section id="movies" v-if="hasSearched">
       <h4>Movies:</h4>
-      <span v-if="!checkList(movies, filteredMovies(genre))">
+      <span v-if="!checkLists(movies, filteredMovies(genre))">
         No results found</span
       >
       <Content
@@ -11,7 +11,7 @@
     </section>
     <section id="tv-series" v-if="hasSearched">
       <h4>Series:</h4>
-      <span v-if="!checkList(series, filteredSeries(genre))">
+      <span v-if="!checkLists(series, filteredSeries(genre))">
         No results found</span
       >
       <Content
@@ -53,8 +53,8 @@ export default {
     filteredMovies(genre) {
       return this.movies.filter((element) => element.genre_ids.includes(genre));
     },
-    checkList(firstList, secondList) {
-      if (firstList.length != 0 || secondList.length != 0) return true;
+    checkLists(firstList, secondList) {
+      if (firstList.length !== 0 || secondList.length !== 0) return true;
     },
   },
   created() {
